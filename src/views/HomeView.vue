@@ -1,4 +1,6 @@
 <template>
+  <button v-on:click="changeShowForm" class="show-form">show form</button>
+  <AddEvent v-if="showForm" :change-show-form="changeShowForm"></AddEvent>
   <div class="events">
     <h1>liste des evenements</h1>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
@@ -8,10 +10,13 @@
 <script>
 // @ is an alias to /src
 import EventCard from "@/components/EventCard.vue";
+import AddEvent from "@/components/AddEvent.vue";
+
 export default {
   name: "HomeView",
   components: {
     EventCard,
+    AddEvent,
   },
   data() {
     return {
@@ -50,7 +55,17 @@ export default {
           organizer: "foulen ben foulen",
         },
       ],
+      showForm: false,
     };
+  },
+  methods: {
+    changeShowForm() {
+      if (this.showForm == true) {
+        this.showForm = false;
+      } else {
+        this.showForm = true;
+      }
+    },
   },
 };
 </script>
@@ -59,5 +74,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.show-form {
+  background: #3630a3;
+  color: white;
 }
 </style>
