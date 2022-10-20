@@ -8,22 +8,21 @@
         close
       </span>
       <h2>add event</h2>
-
-      <form action="">
+      <form action="" @submit.prevent="onSubmit">
         <div class="contentbox">
-          <input type="text" required="required" />
+          <input type="text" required="required" v-model="title" />
           <span>Name event</span>
         </div>
         <div class="contentbox">
-          <input type="date" required="required" />
+          <input type="date" required="required" v-model="date" />
           <span>date</span>
         </div>
         <div class="contentbox">
-          <input type="text" required="required" />
+          <input type="text" required="required" v-model="time" />
           <span>hour</span>
         </div>
         <div class="contentbox">
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" @click="OnSubmit" />
         </div>
       </form>
     </div>
@@ -31,9 +30,33 @@
 </template>
 <script>
 export default {
+  props: {
+    events: Array,
+  },
+  data() {
+    return {
+      title: "",
+      date: "",
+      time: "",
+    };
+  },
   methods: {
     changeShowForm() {
       this.$emit("change-show-form");
+    },
+    OnSubmit() {
+      if (this.title == "" || this.date == "" || this.time == "") {
+        alert("please fill out the form feilds ! ");
+      } else {
+        let event = {
+          id: this.events[this.events.length - 1].id + 1,
+          title: this.title,
+          date: this.date,
+          time: this.time,
+        };
+        this.$emit("event-added", event);
+        this.changeShowForm();
+      }
     },
   },
 };
@@ -45,6 +68,8 @@ export default {
   box-sizing: border-box;
 }
 body {
+  z-index: 999999999999;
+  position: relative;
   font-family: "poppins", sans-serif;
   display: flex;
   justify-content: center;
@@ -137,5 +162,8 @@ body {
 }
 .close-btn:hover {
   color: red;
+}
+.AddEvent {
+  z-index: 99999999;
 }
 </style>

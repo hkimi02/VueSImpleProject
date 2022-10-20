@@ -1,6 +1,11 @@
 <template>
   <button v-on:click="changeShowForm" class="show-form">show form</button>
-  <AddEvent v-if="showForm" :change-show-form="changeShowForm"></AddEvent>
+  <AddEvent
+    v-if="showForm"
+    @change-show-form="changeShowForm"
+    @event-added="AddEventEvents"
+    :events="events"
+  ></AddEvent>
   <div class="events">
     <h1>liste des evenements</h1>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
@@ -33,7 +38,7 @@ export default {
           organizer: "foulen ben foulen",
         },
         {
-          id: 5928101,
+          id: 5928102,
           category: "bien-etre animal",
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
@@ -44,7 +49,7 @@ export default {
           organizer: "foulen ben foulen",
         },
         {
-          id: 5928101,
+          id: 59281033,
           category: "bien-etre animal",
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
@@ -65,6 +70,9 @@ export default {
       } else {
         this.showForm = true;
       }
+    },
+    AddEventEvents(event) {
+      this.events.push(event);
     },
   },
 };
