@@ -2,6 +2,12 @@
   <div class="event-card">
     <span>@ {{ event.time }} on {{ event.date }}</span>
     <h4>{{ event.title }}</h4>
+    <span
+      class="material-symbols-outlined delete-btn"
+      @click="deleteEvent(event)"
+    >
+      delete
+    </span>
   </div>
 </template>
 
@@ -10,6 +16,11 @@ export default {
   name: "EventCard",
   props: {
     event: Object,
+  },
+  methods: {
+    deleteEvent(event) {
+      this.$emit("delete-event", event);
+    },
   },
 };
 </script>
@@ -26,5 +37,8 @@ export default {
 .event-card:hover {
   transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+}
+.delete-btn:hover {
+  color: red;
 }
 </style>

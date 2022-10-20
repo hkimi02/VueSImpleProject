@@ -8,7 +8,12 @@
   ></AddEvent>
   <div class="events">
     <h1>liste des evenements</h1>
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <EventCard
+      v-for="event in events"
+      :key="event.id"
+      :event="event"
+      @delete-event="deleteEvent(event)"
+    />
   </div>
 </template>
 
@@ -73,6 +78,15 @@ export default {
     },
     AddEventEvents(event) {
       this.events.push(event);
+    },
+    deleteEvent(event) {
+      let i = 0;
+      for (i = 0; i < this.events.length; i++) {
+        if (this.events[i].id == event.id) {
+          this.events.splice(i, 1);
+          return;
+        }
+      }
     },
   },
 };
