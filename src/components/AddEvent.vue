@@ -22,7 +22,18 @@
           <span>hour</span>
         </div>
         <div class="contentbox">
-          <input type="submit" value="Submit" @click="OnSubmit" />
+          <input
+            v-if="!callEdit"
+            type="submit"
+            value="Submit"
+            @click="OnSubmit"
+          />
+          <input
+            v-if="callEdit"
+            type="submit"
+            value="update"
+            @click="editEvent"
+          />
         </div>
       </form>
     </div>
@@ -32,12 +43,14 @@
 export default {
   props: {
     events: Array,
+    callEdit: Boolean,
+    editedEvent: Object,
   },
   data() {
     return {
-      title: "",
-      date: "",
-      time: "",
+      title: this.editedEvent.title,
+      date: this.editedEvent.date,
+      time: this.editedEvent.time,
     };
   },
   methods: {
@@ -63,6 +76,17 @@ export default {
         this.$emit("event-added", event);
         this.changeShowForm();
       }
+    },
+    editEvent() {
+      let afterEvent = {
+        id: this.editedEvent.id,
+        title: this.editedEvent.title,
+        date: this.editedEvent.date,
+        time: this.editedEvent.time,
+      };
+      console.log(afterEvent);
+      this.$emit("event-edited", afterEvent);
+      this.changeShowForm();
     },
   },
 };

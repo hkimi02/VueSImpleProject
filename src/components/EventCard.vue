@@ -8,6 +8,9 @@
     >
       delete
     </span>
+    <span class="material-symbols-outlined edit-btn" @click="editEvent(event)">
+      edit
+    </span>
   </div>
 </template>
 
@@ -20,6 +23,9 @@ export default {
   methods: {
     deleteEvent(event) {
       this.$emit("delete-event", event);
+    },
+    editEvent(event) {
+      this.$emit("edit-event", event);
     },
   },
 };
@@ -40,5 +46,8 @@ export default {
 }
 .delete-btn:hover {
   color: red;
+}
+.edit-btn:hover {
+  color: orange;
 }
 </style>

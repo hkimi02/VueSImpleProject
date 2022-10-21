@@ -1,9 +1,12 @@
 <template>
   <button v-on:click="changeShowForm" class="show-form">show form</button>
   <AddEvent
+    :callEdit="callEdit"
+    :editedEvent="editedEvent"
     v-if="showForm"
     @change-show-form="changeShowForm"
     @event-added="AddEventEvents"
+    @event-edited="eventEdited(afterEvent)"
     :events="events"
   ></AddEvent>
   <div class="events">
@@ -13,6 +16,7 @@
       :key="event.id"
       :event="event"
       @delete-event="deleteEvent(event)"
+      @edit-event="editEvent(event)"
     />
   </div>
 </template>
@@ -66,6 +70,8 @@ export default {
         },
       ],
       showForm: false,
+      editedEvent: {},
+      callEdit: false,
     };
   },
   methods: {
@@ -85,6 +91,22 @@ export default {
         if (this.events[i].id == event.id) {
           this.events.splice(i, 1);
           return;
+        }
+      }
+    },
+    editEvent(event) {
+      this.editedEvent = event;
+      this.callEdit = true;
+      this.changeShowForm();
+    },
+    eventEdited(afterEvent) {
+      console.log(afterEvent);
+      let i = 0;
+      let found = false;
+      while (i < this.events.length && found == false) {
+        if (this.events[i].id == afterEvent.id) {
+          this.events[i] = afterEvent;
+          found = true;
         }
       }
     },
