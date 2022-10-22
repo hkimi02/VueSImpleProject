@@ -2,13 +2,10 @@
   <div class="event-card">
     <span>@ {{ event.time }} on {{ event.date }}</span>
     <h4>{{ event.title }}</h4>
-    <span
-      class="material-symbols-outlined delete-btn"
-      @click="deleteEvent(event)"
-    >
+    <span class="material-symbols-outlined delete-btn" @click="deleteEvent()">
       delete
     </span>
-    <span class="material-symbols-outlined edit-btn" @click="editEvent(event)">
+    <span class="material-symbols-outlined edit-btn" @click="editEvent()">
       edit
     </span>
   </div>
@@ -21,11 +18,11 @@ export default {
     event: Object,
   },
   methods: {
-    deleteEvent(event) {
-      this.$emit("delete-event", event);
+    deleteEvent() {
+      this.$emit("delete-event");
     },
-    editEvent(event) {
-      this.$emit("edit-event", event);
+    editEvent() {
+      this.$emit("edit-event");
     },
   },
 };

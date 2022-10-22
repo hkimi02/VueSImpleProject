@@ -42,7 +42,7 @@
 <script>
 export default {
   props: {
-    events: Array,
+    eventId: Number,
     callEdit: Boolean,
     editedEvent: Object,
   },
@@ -61,14 +61,8 @@ export default {
       if (this.title == "" || this.date == "" || this.time == "") {
         alert("please fill out the form feilds ! ");
       } else {
-        let idEvent = 0;
-        if (this.events.length == 0) {
-          idEvent = 1;
-        } else {
-          idEvent = this.events[this.events.length - 1].id + 1;
-        }
         let event = {
-          id: idEvent,
+          id: this.eventId,
           title: this.title,
           date: this.date,
           time: this.time,
@@ -80,11 +74,10 @@ export default {
     editEvent() {
       let afterEvent = {
         id: this.editedEvent.id,
-        title: this.editedEvent.title,
-        date: this.editedEvent.date,
-        time: this.editedEvent.time,
+        title: this.title,
+        date: this.date,
+        time: this.time,
       };
-      console.log(afterEvent);
       this.$emit("event-edited", afterEvent);
       this.changeShowForm();
     },

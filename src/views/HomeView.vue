@@ -1,13 +1,13 @@
 <template>
   <button v-on:click="changeShowForm" class="show-form">show form</button>
   <AddEvent
+    v-if="showForm"
     :callEdit="callEdit"
     :editedEvent="editedEvent"
-    v-if="showForm"
+    :eventId="events.length == 0 ? 1 : events[events.length - 1].id + 1"
     @change-show-form="changeShowForm"
     @event-added="AddEventEvents"
-    @event-edited="eventEdited(afterEvent)"
-    :events="events"
+    @event-edited="eventEdited"
   ></AddEvent>
   <div class="events">
     <h1>liste des evenements</h1>
@@ -41,7 +41,7 @@ export default {
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
           location: "meow town ",
-          date: "28 january 2022",
+          date: "2022-01-28",
           time: "12:00",
           petsAllowed: true,
           organizer: "foulen ben foulen",
@@ -52,7 +52,7 @@ export default {
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
           location: "meow town ",
-          date: "28 january 2022",
+          date: "2022-01-28",
           time: "12:00",
           petsAllowed: true,
           organizer: "foulen ben foulen",
@@ -63,14 +63,18 @@ export default {
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
           location: "meow town ",
-          date: "28 january 2022",
+          date: "2022-01-28",
           time: "12:00",
           petsAllowed: true,
           organizer: "foulen ben foulen",
         },
       ],
       showForm: false,
-      editedEvent: {},
+      editedEvent: {
+        title: "",
+        date: "",
+        time: "",
+      },
       callEdit: false,
     };
   },
@@ -86,13 +90,14 @@ export default {
       this.events.push(event);
     },
     deleteEvent(event) {
-      let i = 0;
-      for (i = 0; i < this.events.length; i++) {
-        if (this.events[i].id == event.id) {
-          this.events.splice(i, 1);
-          return;
-        }
-      }
+      // let i = 0;
+      // for (i = 0; i < this.events.length; i++) {
+      //   if (this.events[i].id == event.id) {
+      //     this.events.splice(i, 1);
+      //     return;
+      //   }
+      // }
+      this.events = this.events.filter((x) => x.id != event.id);
     },
     editEvent(event) {
       this.editedEvent = event;
@@ -100,13 +105,18 @@ export default {
       this.changeShowForm();
     },
     eventEdited(afterEvent) {
-      console.log(afterEvent);
       let i = 0;
       let found = false;
       while (i < this.events.length && found == false) {
         if (this.events[i].id == afterEvent.id) {
           this.events[i] = afterEvent;
           found = true;
+          this.editedEvent = {
+            title: "",
+            date: "",
+            time: "",
+          };
+          this.callEdit = false;
         }
       }
     },
