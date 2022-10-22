@@ -88,6 +88,12 @@ export default {
     },
     AddEventEvents(event) {
       this.events.push(event);
+
+      this.events.length == 0
+        ? console.log(1)
+        : console.log(this.events[this.events.length - 1].id + 1);
+      console.log(this.events.length);
+      console.log(this.events[this.events.length - 1]);
     },
     deleteEvent(event) {
       // let i = 0;

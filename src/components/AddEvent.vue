@@ -62,12 +62,13 @@ export default {
         alert("please fill out the form feilds ! ");
       } else {
         let event = {
-          id: this.eventId,
+          id: this.idEvent,
           title: this.title,
           date: this.date,
           time: this.time,
         };
         this.$emit("event-added", event);
+        console.log(this.idEvent);
         this.changeShowForm();
       }
     },
