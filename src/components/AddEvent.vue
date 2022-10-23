@@ -42,7 +42,7 @@
 <script>
 export default {
   props: {
-    eventId: Number,
+    events: Array,
     callEdit: Boolean,
     editedEvent: Object,
   },
@@ -58,11 +58,19 @@ export default {
       this.$emit("change-show-form");
     },
     OnSubmit() {
+      /* let valide_title = false;
+      let title_compteur=0;
+      while(valide_title==false && title_compteur<this.title.length){
+        if()
+      }*/
       if (this.title == "" || this.date == "" || this.time == "") {
         alert("please fill out the form feilds ! ");
       } else {
         let event = {
-          id: this.idEvent,
+          id:
+            this.events.length == 0
+              ? 1
+              : this.events[this.events.length - 1].id + 1,
           title: this.title,
           date: this.date,
           time: this.time,

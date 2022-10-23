@@ -4,7 +4,7 @@
     v-if="showForm"
     :callEdit="callEdit"
     :editedEvent="editedEvent"
-    :eventId="events.length == 0 ? 1 : events[events.length - 1].id + 1"
+    :events="events"
     @change-show-form="changeShowForm"
     @event-added="AddEventEvents"
     @event-edited="eventEdited"
@@ -36,7 +36,7 @@ export default {
     return {
       events: [
         {
-          id: 5928101,
+          id: 1,
           category: "bien-etre animal",
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
@@ -47,7 +47,7 @@ export default {
           organizer: "foulen ben foulen",
         },
         {
-          id: 5928102,
+          id: 2,
           category: "bien-etre animal",
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
@@ -58,7 +58,7 @@ export default {
           organizer: "foulen ben foulen",
         },
         {
-          id: 59281033,
+          id: 3,
           category: "bien-etre animal",
           title: "journee d adopation des chats",
           description: "trouvez votre nouvel ami felin lors de cet evenement",
@@ -88,12 +88,6 @@ export default {
     },
     AddEventEvents(event) {
       this.events.push(event);
-
-      this.events.length == 0
-        ? console.log(1)
-        : console.log(this.events[this.events.length - 1].id + 1);
-      console.log(this.events.length);
-      console.log(this.events[this.events.length - 1]);
     },
     deleteEvent(event) {
       // let i = 0;
@@ -117,12 +111,14 @@ export default {
         if (this.events[i].id == afterEvent.id) {
           this.events[i] = afterEvent;
           found = true;
-          this.editedEvent = {
-            title: "",
-            date: "",
-            time: "",
-          };
+          this.editedEvent.id = "";
+          this.editedEvent.title = "";
+          this.editedEvent.date = "";
+          this.editedEvent.time = "";
           this.callEdit = false;
+          return;
+        } else {
+          i++;
         }
       }
     },
