@@ -57,27 +57,54 @@ export default {
     changeShowForm() {
       this.$emit("change-show-form");
     },
+    ValidName() {
+      let i = 0;
+      for (i = 0; i < this.title.length; i++) {
+        if (
+          (this.title[i].charCodeAt() > 123 ||
+            this.title[i].charCodeAt() < 97) &&
+          (this.title[i].charCodeAt() < 65 || this.title[i].charCodeAt() > 90)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    },
+    ValidTime() {
+      let hours = this.time.split(":");
+      console.log(hours);
+      let i = 0;
+      for (i = 0; i < hours.length; i++) {
+        if (parseInt(hours[i]) > 60 || parseInt(hours[i]) < 0) {
+          return false;
+        }
+      }
+      return true;
+    },
     OnSubmit() {
-      /* let valide_title = false;
-      let title_compteur=0;
-      while(valide_title==false && title_compteur<this.title.length){
-        if()
-      }*/
-      if (this.title == "" || this.date == "" || this.time == "") {
-        alert("please fill out the form feilds ! ");
+      if (!this.ValidName()) {
+        alert("please enter a valid event title");
+        return;
+      } else if (!this.ValidTime()) {
+        alert("please enter a valid event time");
+        return;
       } else {
-        let event = {
-          id:
-            this.events.length == 0
-              ? 1
-              : this.events[this.events.length - 1].id + 1,
-          title: this.title,
-          date: this.date,
-          time: this.time,
-        };
-        this.$emit("event-added", event);
-        console.log(this.idEvent);
-        this.changeShowForm();
+        if (this.title == "" || this.date == "" || this.time == "") {
+          alert("please fill out the form feilds ! ");
+        } else {
+          let event = {
+            id:
+              this.events.length == 0
+                ? 1
+                : this.events[this.events.length - 1].id + 1,
+            title: this.title,
+            date: this.date,
+            time: this.time,
+          };
+          this.$emit("event-added", event);
+          console.log(this.idEvent);
+          this.changeShowForm();
+        }
       }
     },
     editEvent() {
