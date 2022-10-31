@@ -1,4 +1,19 @@
 <template>
+  <div class="input-group">
+    <div class="form-outline">
+      <input
+        type="search"
+        id="form1"
+        class="form-control"
+        placeholder="search"
+        v-model="searchValue"
+      />
+    </div>
+    <button type="button" class="btn btn-primary search-btn">
+      <span class="material-symbols-outlined"> search </span>
+    </button>
+  </div>
+  <br /><br />
   <button v-on:click="changeShowForm" class="show-form">show form</button>
   <AddEvent
     v-if="showForm"
@@ -9,7 +24,7 @@
     @event-added="AddEventEvents"
     @event-edited="eventEdited"
   ></AddEvent>
-  <div class="events">
+  <div class="events" v-if="!searchBool">
     <h1>liste des evenements</h1>
     <EventCard
       v-for="event in events"
@@ -17,7 +32,7 @@
       :event="event"
       @delete-event="deleteEvent(event)"
       @edit-event="editEvent(event)"
-    />
+    ></EventCard>
   </div>
 </template>
 
@@ -76,6 +91,9 @@ export default {
         time: "",
       },
       callEdit: false,
+      searchValue: "",
+      searchBool: false,
+      searchedevents: [],
     };
   },
   methods: {
@@ -90,13 +108,6 @@ export default {
       this.events.push(event);
     },
     deleteEvent(event) {
-      // let i = 0;
-      // for (i = 0; i < this.events.length; i++) {
-      //   if (this.events[i].id == event.id) {
-      //     this.events.splice(i, 1);
-      //     return;
-      //   }
-      // }
       this.events = this.events.filter((x) => x.id != event.id);
     },
     editEvent(event) {
@@ -123,6 +134,16 @@ export default {
       }
     },
   },
+  search() {
+    this.searchBool = true;
+    let i = 0;
+    for (i = 0; i < this.events.length; i++) {
+      if (this.searchValue == this.events.title) {
+        let item = { ...this.events[i] };
+        this.searchedevents.push(item);
+      }
+    }
+  },
 };
 </script>
 <style scoped>
@@ -134,5 +155,8 @@ export default {
 .show-form {
   background: #3630a3;
   color: white;
+}
+.search-btn {
+  height: 2.5rem;
 }
 </style>
