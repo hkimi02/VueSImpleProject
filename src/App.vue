@@ -1,3 +1,4 @@
+<script>/* eslint-disable */</script>
 <template>
   <nav>
     <router-link to="/">Home</router-link> |

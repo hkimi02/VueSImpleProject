@@ -1,43 +1,4 @@
-<template>
-  <div class="input-group">
-    <div class="form-outline">
-      <input
-        type="search"
-        id="form1"
-        class="form-control"
-        placeholder="search"
-        v-model="searchValue"
-      />
-    </div>
-    <button type="button" class="btn btn-primary search-btn">
-      <span class="material-symbols-outlined"> search </span>
-    </button>
-  </div>
-  <br /><br />
-  <button v-on:click="changeShowForm" class="show-form">show form</button>
-  <AddEvent
-    v-if="showForm"
-    :callEdit="callEdit"
-    :editedEvent="editedEvent"
-    :events="events"
-    @change-show-form="changeShowForm"
-    @event-added="AddEventEvents"
-    @event-edited="eventEdited"
-  ></AddEvent>
-  <div class="events" v-if="!searchBool">
-    <h1>liste des evenements</h1>
-    <EventCard
-      v-for="event in events"
-      :key="event.id"
-      :event="event"
-      @delete-event="deleteEvent(event)"
-      @edit-event="editEvent(event)"
-    ></EventCard>
-  </div>
-</template>
-
-<script>
-// @ is an alias to /src
+<script>/* eslint-disable */
 import EventCard from "@/components/EventCard.vue";
 import AddEvent from "@/components/AddEvent.vue";
 
@@ -146,6 +107,43 @@ export default {
   },
 };
 </script>
+<template>
+  <div class="input-group">
+    <div class="form-outline">
+      <input
+        type="search"
+        id="form1"
+        class="form-control"
+        placeholder="search"
+        v-model="searchValue"
+      />
+    </div>
+    <button type="button" class="btn btn-primary search-btn">
+      <span class="material-symbols-outlined"> search </span>
+    </button>
+  </div>
+  <br /><br />
+  <button v-on:click="changeShowForm" class="show-form">show form</button>
+  <AddEvent
+    v-if="showForm"
+    :callEdit="callEdit"
+    :editedEvent="editedEvent"
+    :events="events"
+    @change-show-form="changeShowForm"
+    @event-added="AddEventEvents"
+    @event-edited="eventEdited"
+  ></AddEvent>
+  <div class="events" v-if="!searchBool">
+    <h1>liste des evenements</h1>
+    <EventCard
+      v-for="event in events"
+      :key="event.id"
+      :event="event"
+      @delete-event="deleteEvent(event)"
+      @edit-event="editEvent(event)"
+    ></EventCard>
+  </div>
+</template>
 <style scoped>
 .events {
   display: flex;
