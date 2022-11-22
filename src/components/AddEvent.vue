@@ -40,17 +40,18 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 export default {
   props: {
     events: Array,
     callEdit: Boolean,
-    editedEvent: Object,
+    editedEvent: Object
   },
   data() {
     return {
       title: this.editedEvent.title,
       date: this.editedEvent.date,
-      time: this.editedEvent.time,
+      time: this.editedEvent.time
     };
   },
   methods: {
@@ -99,7 +100,7 @@ export default {
                 : this.events[this.events.length - 1].id + 1,
             title: this.title,
             date: this.date,
-            time: this.time,
+            time: this.time
           };
           this.$emit("event-added", event);
           console.log(this.idEvent);
@@ -112,12 +113,12 @@ export default {
         id: this.editedEvent.id,
         title: this.title,
         date: this.date,
-        time: this.time,
+        time: this.time
       };
       this.$emit("event-edited", afterEvent);
       this.changeShowForm();
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
@@ -126,6 +127,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   z-index: 999999999999;
   position: relative;
@@ -142,6 +144,7 @@ body {
     rgba(229, 195, 250, 1) 100%
   );
 }
+
 .container {
   position: relative;
   padding: 70px 40px;
@@ -210,18 +213,22 @@ body {
   background: #7654c4;
   color: #fff;
 }
+
 .container .contentbox input[type="submit"]:hover {
   background: #7654c4;
   color: #fff;
   opacity: 0.8;
 }
+
 .close-btn {
   cursor: pointer;
   margin-left: 95%;
 }
+
 .close-btn:hover {
   color: red;
 }
+
 .AddEvent {
   z-index: 99999999;
 }
